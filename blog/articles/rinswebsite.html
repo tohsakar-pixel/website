@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python入门指南 | 文章详情</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #e6c762;
+            --border-color: #2a2a2a;
+            --python-blue: #3776ab;
+            --c-blue: #00599c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-gold-light);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 文章详情头部 */
+        .article-detail-header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .back-link::before {
+            content: '←';
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .article-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .article-info {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* 文章内容 */
+        .article-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+        
+        .article-body h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--accent-gold);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .article-body h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--accent-gold-light);
+        }
+        
+        .article-body p {
+            margin-bottom: 20px;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        
+        .article-body li {
+            margin-bottom: 10px;
+        }
+        
+        .article-body blockquote {
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        /* 代码块样式 */
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .code-title {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+        
+        .language-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .python-tag {
+            background-color: var(--python-blue);
+            color: white;
+        }
+        
+        .c-tag {
+            background-color: var(--c-blue);
+            color: white;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #080808;
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rin's Blog</div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../article.html">文章</a></li>
+                        <li><a href="../project-list.html">项目</a></li>
+                        <li><a href="../about.html">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 文章详情头部 -->
+    <section class="article-detail-header container">
+        <a href="../article.html" class="back-link">返回文章列表</a>
+        <h1 class="article-title">个人博客的第一篇文章</h1>
+        <div class="article-meta">
+            <span class="article-category">网页更新</span>
+            <div class="article-info">
+                <span class="article-date">2025年11月12日</span>
+                <span class="article-read-time">8分钟阅读</span>
+                <span class="article-words">约1500字</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章内容 -->
+    <main class="container">
+        <div class="article-body">
+            <h2>为什么搭建个人博客？</h2>
+            <p>搭建个人博客是为了在数字世界拥有一片自留地，它能系统化沉淀你的知识，并主动塑造你的个人品牌，而非被动接受算法推送。</p>
+            
+            <p>Python拥有丰富的库和框架，覆盖了Web开发、数据分析、人工智能、自动化脚本等众多领域。无论你的兴趣方向是什么，Python都能提供相应的工具和支持。</p>
+            
+            <h2>Python基础语法</h2>
+            <h3>变量和数据类型</h3>
+            <p>在Python中，你不需要显式声明变量的类型，解释器会自动推断：</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">变量定义示例</span>
+                    <span class="language-tag python-tag">Python</span>
+                </div>
+                <pre><code># 定义变量
+name = "小明"
+age = 20
+height = 1.75
+is_student = True
+
+# 打印变量
+print("姓名:", name)
+print("年龄:", age)
+print("身高:", height)
+print("是否学生:", is_student)</code></pre>
+            </div>
+
+            <h3>条件语句</h3>
+            <p>Python使用缩进来表示代码块，这使得代码结构清晰易读：</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">条件语句示例</span>
+                    <span class="language-tag python-tag">Python</span>
+                </div>
+                <pre><code># 条件判断
+score = 85
+
+if score >= 90:
+    print("优秀")
+elif score >= 80:
+    print("良好")
+elif score >= 70:
+    print("中等")
+else:
+    print("需要努力")</code></pre>
+            </div>
+
+            <h3>循环结构</h3>
+            <p>Python提供了for循环和while循环两种循环结构：</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">循环示例</span>
+                    <span class="language-tag python-tag">Python</span>
+                </div>
+                <pre><code># for循环遍历列表
+fruits = ["苹果", "香蕉", "橙子", "葡萄"]
+
+for fruit in fruits:
+    print("我喜欢吃" + fruit)
+
+# while循环
+count = 1
+while count <= 5:
+    print(f"这是第{count}次循环")
+    count += 1</code></pre>
+            </div>
+
+            <h2>函数定义与使用</h2>
+            <p>函数是组织代码的重要方式，Python中使用def关键字定义函数：</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">函数示例</span>
+                    <span class="language-tag python-tag">Python</span>
+                </div>
+                <pre><code># 定义函数
+def greet(name):
+    """向指定的人打招呼"""
+    return f"你好，{name}！"
+
+def add_numbers(a, b):
+    """计算两个数的和"""
+    return a + b
+
+# 使用函数
+message = greet("小明")
+print(message)
+
+result = add_numbers(5, 3)
+print(f"5 + 3 = {result}")</code></pre>
+            </div>
+
+            <h2>列表和字典</h2>
+            <p>列表和字典是Python中最常用的数据结构：</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">数据结构示例</span>
+                    <span class="language-tag python-tag">Python</span>
+                </div>
+                <pre><code># 列表操作
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)  # 添加元素
+numbers.remove(3)  # 删除元素
+
+# 遍历列表
+for number in numbers:
+    print(number)
+
+# 字典操作
+student = {
+    "name": "小明",
+    "age": 20,
+    "major": "计算机科学"
+}
+
+# 访问字典值
+print(student["name"])
+print(student.get("age"))
+
+# 添加新键值对
+student["grade"] = "大二"</code></pre>
+            </div>
+
+            <h2>学习建议</h2>
+            <p>对于Python初学者，我建议：</p>
+            <ul>
+                <li>从基础语法开始，理解变量、数据类型、控制结构等概念</li>
+                <li>多动手实践，通过编写小程序来巩固知识</li>
+                <li>阅读优秀的Python代码，学习编码风格和最佳实践</li>
+                <li>参与开源项目或自己感兴趣的小项目</li>
+                <li>遇到问题时，善用官方文档和社区资源</li>
+            </ul>
+
+            <blockquote>
+                "编程不是关于你知道什么，而是关于你能够解决什么问题。Python为你提供了强大的工具，关键在于如何运用它们。"
+            </blockquote>
+
+            <p>Python是一门非常友好的编程语言，适合初学者入门。通过持续学习和实践，你将能够掌握这门强大的工具，并用它来解决实际问题。祝你在编程学习的道路上取得成功！</p>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Rin's Blog</h3>
+                    <p>一个专注于技术、设计与生活感悟的个人博客空间</p >
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">首页</a ></li>
+                        <li><a href="../article.html">文章</a ></li>
+                        <li><a href="../project-list.html">项目</a ></li>
+                        <li><a href="../about.html">关于</a ></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我</h3>
+                    <ul class="footer-links">
+                        <li>邮箱: zzm2708@outlook.com</li>
+                        <li>QQ: 2426413059</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">G</a >
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Rin个人博客. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

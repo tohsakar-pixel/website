@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两个超大位数相加 | 文章详情</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #e6c762;
+            --border-color: #2a2a2a;
+            --python-blue: #3776ab;
+            --c-blue: #00599c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-gold-light);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 文章详情头部 */
+        .article-detail-header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .back-link::before {
+            content: '←';
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            line-height: 1.3;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .article-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .article-info {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* 文章内容 */
+        .article-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding-bottom: 80px;
+        }
+        
+        .article-body h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--accent-gold);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .article-body h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--accent-gold-light);
+        }
+        
+        .article-body p {
+            margin-bottom: 20px;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        
+        .article-body li {
+            margin-bottom: 10px;
+        }
+        
+        .article-body blockquote {
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        /* 代码块样式 */
+        .code-block {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .code-title {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+        
+        .language-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .python-tag {
+            background-color: var(--python-blue);
+            color: white;
+        }
+        
+        .c-tag {
+            background-color: var(--c-blue);
+            color: white;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #080808;
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rin's Blog</div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../article.html">文章</a></li>
+                        <li><a href="../project-list.html">项目</a></li>
+                        <li><a href="../about.html">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 文章详情头部 -->
+    <section class="article-detail-header container">
+        <a href="../article.html" class="back-link">返回文章列表</a>
+        <h1 class="article-title">两个超大位数相加</h1>
+        <div class="article-meta">
+            <span class="article-category">算法</span>
+            <div class="article-info">
+                <span class="article-date">2025年11月8日</span>
+                <span class="article-read-time">3分钟阅读</span>
+                <span class="article-words">约52行</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章内容 -->
+    <main class="container">
+        <div class="article-body">
+            <h2>如何解决</h2>
+            <p>这个算法核心原理是模拟人工竖式计算方法。首先将两个表示大数的字符串反转存储到整型数组中（个位在前），然后逐位相加并处理进位，最后将结果再次反转输出（高位在前）。</p>
+            
+            <p>通过字符串存储和数组运算的方式，该算法突破了数据类型的位数限制，能够处理任意长度的整数加法，为高精度计算提供了基础。</p>
+            
+            <h2>代码实现</h2>        
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">解决</span>
+                    <span class="language-tag python-tag">C</span>
+                </div>
+                <pre><code>#include &ltstdio.h&gt
+#include &ltstring.h&gt
+
+#define MAX_LEN 200
+
+int main(void)
+{
+    char str1[MAX_LEN + 1], str2[MAX_LEN + 1];
+    int num1[MAX_LEN] = {0}, num2[MAX_LEN] = {0}, result[MAX_LEN + 1] = {0};
+    int len1, len2, max_len;
+    
+    scanf("%s", str1);
+    scanf("%s", str2);
+    
+    len1 = strlen(str1);
+    len2 = strlen(str2);
+    max_len = (len1 > len2) ? len1 : len2;
+    
+    //将字符转换为数字,反转
+    for (int i = 0; i < len1; i++)
+    {
+        num1[i] = str1[len1 - 1 - i] - '0';
+    }
+    for (int i = 0; i < len2; i++)
+    {
+        num2[i] = str2[len2 - 1 - i] - '0';
+    }
+    
+    //逐位相加并处理进位
+    int carry = 0;
+    for (int i = 0; i < max_len; i++)
+    {
+        int sum = num1[i] + num2[i] + carry;
+        result[i] = sum % 10;
+        carry = sum / 10;//如果相加大于10，则carry+1，在下一位进位
+    }
+    
+    //最后的进位
+    if (carry > 0)
+    {
+        result[max_len] = carry;
+        max_len++;
+    }
+    
+    for (int i = max_len - 1; i >= 0; i--)
+    {
+        printf("%d", result[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Rin's Blog</h3>
+                    <p>一个专注于技术、设计与生活感悟的个人博客空间</p >
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">首页</a ></li>
+                        <li><a href="../article.html">文章</a ></li>
+                        <li><a href="../project-list.html">项目</a ></li>
+                        <li><a href="../about.html">关于</a ></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我</h3>
+                    <ul class="footer-links">
+                        <li>邮箱: zzm2708@outlook.com</li>
+                        <li>QQ: 2426413059</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">G</a >
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Rin个人博客. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

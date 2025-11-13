@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目作品</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #e6c762;
+            --border-color: #2a2a2a;
+            --python-blue: #3776ab;
+            --c-blue: #00599c;
+            --web-orange: #e34c26;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-gold-light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+        
+        /* 项目筛选 */
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border-color: var(--accent-gold);
+        }
+        
+        /* 项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .project-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(10, 10, 10, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .project-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .python-tag {
+            background-color: var(--python-blue);
+            color: white;
+        }
+        
+        .c-tag {
+            background-color: var(--c-blue);
+            color: white;
+        }
+        
+        .web-tag {
+            background-color: var(--web-orange);
+            color: white;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            padding: 4px 10px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .project-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+        
+        .project-link:hover::after {
+            transform: translateX(5px);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #080808;
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rin's Blog</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="article.html">文章</a></li>
+                        <li><a href="project-list.html" class="active">项目</a></li>
+                        <li><a href="about.html">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 页面标题 -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">我的项目作品</h1>
+            <p class="page-subtitle">展示我在编程、设计和开发领域的实践成果，包括Python应用、C语言项目和Web开发作品。</p>
+        </div>
+    </section>
+
+    <!-- 项目筛选 -->
+    <section class="container">
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">全部项目</button>
+            <button class="filter-btn" data-filter="python">Python</button>
+            <button class="filter-btn" data-filter="c">C语言</button>
+            <button class="filter-btn" data-filter="web">Web开发</button>
+            <button class="filter-btn" data-filter="tool">开发工具</button>
+        </div>
+    </section>
+
+    <!-- 项目网格 -->
+    <main class="container">
+        <div class="projects-grid">
+            <!-- 项目1 -->
+            <div class="project-card" data-category="python web">
+                <div class="project-image">
+                    <span class="project-tag python-tag">Python</span>
+                    <span class="project-tag web-tag">Web</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">个人博客系统</h3>
+                    <p class="project-description">基于Django框架开发的个人博客系统，包含文章管理、评论系统和用户认证等功能。支持Markdown编辑和代码高亮。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目2 -->
+            <div class="project-card" data-category="c tool">
+                <div class="project-image">
+                    <span class="project-tag c-tag">C语言</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">简易文件压缩工具</h3>
+                    <p class="project-description">使用C语言实现的文件压缩工具，基于霍夫曼编码算法，支持文本文件的压缩和解压缩功能。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C语言</span>
+                        <span class="tech-tag">数据结构</span>
+                        <span class="tech-tag">算法</span>
+                        <span class="tech-tag">文件I/O</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目3 -->
+            <div class="project-card" data-category="python tool">
+                <div class="project-image">
+                    <span class="project-tag python-tag">Python</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">数据分析可视化平台</h3>
+                    <p class="project-description">使用Python开发的数据分析和可视化工具，支持多种数据格式导入，提供丰富的图表类型和交互功能。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">SQLite</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目4 -->
+            <div class="project-card" data-category="c">
+                <div class="project-image">
+                    <span class="project-tag c-tag">C语言</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">多线程网络服务器</h3>
+                    <p class="project-description">基于C语言和POSIX线程库开发的多线程网络服务器，支持并发连接处理和基本的HTTP请求响应。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C语言</span>
+                        <span class="tech-tag">Socket编程</span>
+                        <span class="tech-tag">多线程</span>
+                        <span class="tech-tag">Linux</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目5 -->
+            <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <span class="project-tag web-tag">Web</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">响应式企业官网</h3>
+                    <p class="project-description">使用现代前端技术开发的响应式企业官网，适配各种设备屏幕，包含动画效果和交互式组件。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">jQuery</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">在线演示</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 项目6 -->
+            <div class="project-card" data-category="python">
+                <div class="project-image">
+                    <span class="project-tag python-tag">Python</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">自动化测试框架</h3>
+                    <p class="project-description">基于Python的自动化测试框架，支持Web应用和API接口的自动化测试，生成详细的测试报告。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Selenium</span>
+                        <span class="tech-tag">Requests</span>
+                        <span class="tech-tag">Pytest</span>
+                        <span class="tech-tag">Allure</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Rin's Blog</h3>
+                    <p>一个专注于编程技术与软件开发的个人博客。</p>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="article.html">文章</a></li>
+                        <li><a href="project-list.html">项目</a></li>
+                        <li><a href="about.html">关于</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我</h3>
+                    <ul class="footer-links">
+                        <li>邮箱: zzm2708@outlook.com</li>
+                        <li>QQ: 2426413059/li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">G</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Rin个人博客. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 项目筛选功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 更新活动按钮
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 筛选项目
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目详情</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #e6c762;
+            --border-color: #2a2a2a;
+            --python-blue: #3776ab;
+            --c-blue: #00599c;
+            --web-orange: #e34c26;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-gold-light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 项目详情头部 */
+        .project-detail-header {
+            padding: 80px 0 40px;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .back-link::before {
+            content: '←';
+        }
+        
+        .project-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+        }
+        
+        .project-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .project-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .project-date {
+            color: var(--text-secondary);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+        
+        /* 项目内容布局 */
+        .project-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 40px 0 80px;
+        }
+        
+        /* 主要内容区域 */
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .project-description h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--accent-gold);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .project-description h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--accent-gold-light);
+        }
+        
+        .project-description p {
+            margin-bottom: 20px;
+        }
+        
+        .project-description ul, .project-description ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        
+        .project-description li {
+            margin-bottom: 10px;
+        }
+        
+        .project-description blockquote {
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        
+        /* 项目截图 */
+        .project-screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .screenshot {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 技术栈 */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .tech-item {
+            padding: 8px 16px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* 侧边栏 */
+        .project-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .project-info-list {
+            list-style: none;
+        }
+        
+        .project-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .project-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+        }
+        
+        .info-value {
+            font-weight: 600;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .feature-item::before {
+            content: '✓';
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #080808;
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-sidebar {
+                position: static;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .project-title {
+                font-size: 2.2rem;
+            }
+            
+            .project-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rin's Blog</div>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../article.html">文章</a></li>
+                        <li><a href="../project-list.html">项目</a></li>
+                        <li><a href="../about.html">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 项目详情头部 -->
+    <section class="project-detail-header container">
+        <a href="../project-list.html" class="back-link">返回项目列表</a>
+        <h1 class="project-title">个人博客系统</h1>
+        <div class="project-meta">
+            <span class="project-category">Python / Web开发</span>
+            <span class="project-date">完成时间: 2023年9月</span>
+            <div class="project-links">
+                <a href="#" class="project-link">GitHub</a>
+                <a href="#" class="project-link">在线演示</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目内容 -->
+    <main class="container">
+        <div class="project-content">
+            <!-- 主要内容 -->
+            <div class="project-description">
+                <h2>项目概述</h2>
+                <p>这是一个基于Django框架开发的个人博客系统，旨在提供一个简洁、高效的内容发布平台。系统支持文章管理、用户评论、分类标签等核心功能，同时注重代码的可维护性和扩展性。</p>
+                
+                <h2>项目背景</h2>
+                <p>在当今信息爆炸的时代，拥有一个个人博客不仅是展示技术能力的平台，更是记录学习历程和分享知识的有效方式。本项目旨在创建一个功能完善且易于维护的博客系统，既满足个人使用需求，也为其他开发者提供参考。</p>
+                
+                <h2>核心功能</h2>
+                <ul>
+                    <li><strong>文章管理系统：</strong>支持文章的创建、编辑、发布和删除，支持Markdown格式编写</li>
+                    <li><strong>用户认证系统：</strong>实现用户注册、登录、权限管理等功能</li>
+                    <li><strong>评论系统：</strong>允许访客对文章发表评论，支持评论审核和回复</li>
+                    <li><strong>分类与标签：</strong>灵活的文章分类和标签系统，便于内容组织</li>
+                    <li><strong>搜索功能：</strong>基于关键词的文章搜索，支持按标题、内容和标签搜索</li>
+                    <li><strong>响应式设计：</strong>适配各种设备屏幕，提供良好的移动端体验</li>
+                </ul>
+                
+                <h2>技术实现</h2>
+                <h3>后端技术栈</h3>
+                <div class="tech-stack">
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">Django</span>
+                    <span class="tech-item">MySQL</span>
+                    <span class="tech-item">REST API</span>
+                    <span class="tech-item">JWT</span>
+                </div>
+                
+                <h3>前端技术栈</h3>
+                <div class="tech-stack">
+                    <span class="tech-item">HTML5</span>
+                    <span class="tech-item">CSS3</span>
+                    <span class="tech-item">JavaScript</span>
+                    <span class="tech-item">Bootstrap</span>
+                    <span class="tech-item">jQuery</span>
+                </div>
+                
+                <h3>开发工具</h3>
+                <div class="tech-stack">
+                    <span class="tech-item">Git</span>
+                    <span class="tech-item">Docker</span>
+                    <span class="tech-item">VS Code</span>
+                    <span class="tech-item">Postman</span>
+                </div>
+                
+                <h2>项目截图</h2>
+                <div class="project-screenshots">
+                    <div class="screenshot">
+                        <!-- 这里应该是图片，使用占位符 -->
+                        <div style="height: 200px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">首页截图</div>
+                    </div>
+                    <div class="screenshot">
+                        <div style="height: 200px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">文章详情页</div>
+                    </div>
+                    <div class="screenshot">
+                        <div style="height: 200px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">后台管理</div>
+                    </div>
+                </div>
+                
+                <h2>开发过程</h2>
+                <p>项目采用敏捷开发方法，分为多个迭代周期完成。首先搭建基础框架和数据库模型，然后逐步实现用户认证、文章管理、评论系统等核心功能。在开发过程中，注重代码质量和测试覆盖，确保系统的稳定性和可维护性。</p>
+                
+                <h2>挑战与解决方案</h2>
+                <p>在开发过程中遇到的主要挑战包括用户权限管理、Markdown内容渲染和搜索功能优化。通过深入研究Django的权限系统、集成Markdown解析库和优化数据库查询，成功解决了这些问题。</p>
+                
+                <h2>未来规划</h2>
+                <p>计划在未来版本中增加更多功能，如文章收藏、用户关注、邮件订阅、数据统计和分析等，进一步提升博客系统的用户体验和管理效率。</p>
+            </div>
+            
+            <!-- 侧边栏 -->
+            <aside class="project-sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">项目信息</h3>
+                    <ul class="project-info-list">
+                        <li class="project-info-item">
+                            <span class="info-label">项目状态</span>
+                            <span class="info-value">已完成</span>
+                        </li>
+                        <li class="project-info-item">
+                            <span class="info-label">开发周期</span>
+                            <span class="info-value">3个月</span>
+                        </li>
+                        <li class="project-info-item">
+                            <span class="info-label">技术栈</span>
+                            <span class="info-value">Python, Django</span>
+                        </li>
+                        <li class="project-info-item">
+                            <span class="info-label">数据库</span>
+                            <span class="info-value">MySQL</span>
+                        </li>
+                        <li class="project-info-item">
+                            <span class="info-label">前端框架</span>
+                            <span class="info-value">Bootstrap</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">主要功能</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item">文章发布与管理</li>
+                        <li class="feature-item">用户注册与登录</li>
+                        <li class="feature-item">评论系统</li>
+                        <li class="feature-item">分类与标签</li>
+                        <li class="feature-item">全文搜索</li>
+                        <li class="feature-item">响应式设计</li>
+                        <li class="feature-item">Markdown支持</li>
+                        <li class="feature-item">后台管理</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">相关项目</h3>
+                    <ul class="feature-list">
+                        <li class="feature-item"><a href="#">数据分析可视化平台</a></li>
+                        <li class="feature-item"><a href="#">自动化测试框架</a></li>
+                        <li class="feature-item"><a href="#">响应式企业官网</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Rin's Blog</h3>
+                    <p>一个专注于编程技术与软件开发的个人博客。</p>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../article.html">文章</a></li>
+                        <li><a href="../project-list.html">项目</a></li>
+                        <li><a href="../about.html">关于</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我</h3>
+                    <ul class="footer-links">
+                        <li>邮箱: zzm2708@outlook.com</li>
+                        <li>QQ: 2426413059</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">G</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Rin个人博客. 保留所有权利.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
