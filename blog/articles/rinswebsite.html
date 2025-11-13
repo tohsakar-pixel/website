@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python入门指南 | 文章详情</title>
+    <title>个人博客的第一篇文章</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css">
     <style>
         /* 全局样式 */
@@ -359,8 +359,8 @@
             <span class="article-category">网页更新</span>
             <div class="article-info">
                 <span class="article-date">2025年11月12日</span>
-                <span class="article-read-time">8分钟阅读</span>
-                <span class="article-words">约1500字</span>
+                <span class="article-read-time">1分钟阅读</span>
+                <span class="article-words">约100字</span>
             </div>
         </div>
     </section>
@@ -369,146 +369,12 @@
     <main class="container">
         <div class="article-body">
             <h2>为什么搭建个人博客？</h2>
-            <p>搭建个人博客是为了在数字世界拥有一片自留地，它能系统化沉淀你的知识，并主动塑造你的个人品牌，而非被动接受算法推送。</p>
-            
-            <p>Python拥有丰富的库和框架，覆盖了Web开发、数据分析、人工智能、自动化脚本等众多领域。无论你的兴趣方向是什么，Python都能提供相应的工具和支持。</p>
-            
-            <h2>Python基础语法</h2>
-            <h3>变量和数据类型</h3>
-            <p>在Python中，你不需要显式声明变量的类型，解释器会自动推断：</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-title">变量定义示例</span>
-                    <span class="language-tag python-tag">Python</span>
-                </div>
-                <pre><code># 定义变量
-name = "小明"
-age = 20
-height = 1.75
-is_student = True
-
-# 打印变量
-print("姓名:", name)
-print("年龄:", age)
-print("身高:", height)
-print("是否学生:", is_student)</code></pre>
-            </div>
-
-            <h3>条件语句</h3>
-            <p>Python使用缩进来表示代码块，这使得代码结构清晰易读：</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-title">条件语句示例</span>
-                    <span class="language-tag python-tag">Python</span>
-                </div>
-                <pre><code># 条件判断
-score = 85
-
-if score >= 90:
-    print("优秀")
-elif score >= 80:
-    print("良好")
-elif score >= 70:
-    print("中等")
-else:
-    print("需要努力")</code></pre>
-            </div>
-
-            <h3>循环结构</h3>
-            <p>Python提供了for循环和while循环两种循环结构：</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-title">循环示例</span>
-                    <span class="language-tag python-tag">Python</span>
-                </div>
-                <pre><code># for循环遍历列表
-fruits = ["苹果", "香蕉", "橙子", "葡萄"]
-
-for fruit in fruits:
-    print("我喜欢吃" + fruit)
-
-# while循环
-count = 1
-while count <= 5:
-    print(f"这是第{count}次循环")
-    count += 1</code></pre>
-            </div>
-
-            <h2>函数定义与使用</h2>
-            <p>函数是组织代码的重要方式，Python中使用def关键字定义函数：</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-title">函数示例</span>
-                    <span class="language-tag python-tag">Python</span>
-                </div>
-                <pre><code># 定义函数
-def greet(name):
-    """向指定的人打招呼"""
-    return f"你好，{name}！"
-
-def add_numbers(a, b):
-    """计算两个数的和"""
-    return a + b
-
-# 使用函数
-message = greet("小明")
-print(message)
-
-result = add_numbers(5, 3)
-print(f"5 + 3 = {result}")</code></pre>
-            </div>
-
-            <h2>列表和字典</h2>
-            <p>列表和字典是Python中最常用的数据结构：</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-title">数据结构示例</span>
-                    <span class="language-tag python-tag">Python</span>
-                </div>
-                <pre><code># 列表操作
-numbers = [1, 2, 3, 4, 5]
-numbers.append(6)  # 添加元素
-numbers.remove(3)  # 删除元素
-
-# 遍历列表
-for number in numbers:
-    print(number)
-
-# 字典操作
-student = {
-    "name": "小明",
-    "age": 20,
-    "major": "计算机科学"
-}
-
-# 访问字典值
-print(student["name"])
-print(student.get("age"))
-
-# 添加新键值对
-student["grade"] = "大二"</code></pre>
-            </div>
-
-            <h2>学习建议</h2>
-            <p>对于Python初学者，我建议：</p>
-            <ul>
-                <li>从基础语法开始，理解变量、数据类型、控制结构等概念</li>
-                <li>多动手实践，通过编写小程序来巩固知识</li>
-                <li>阅读优秀的Python代码，学习编码风格和最佳实践</li>
-                <li>参与开源项目或自己感兴趣的小项目</li>
-                <li>遇到问题时，善用官方文档和社区资源</li>
-            </ul>
-
-            <blockquote>
-                "编程不是关于你知道什么，而是关于你能够解决什么问题。Python为你提供了强大的工具，关键在于如何运用它们。"
-            </blockquote>
-
-            <p>Python是一门非常友好的编程语言，适合初学者入门。通过持续学习和实践，你将能够掌握这门强大的工具，并用它来解决实际问题。祝你在编程学习的道路上取得成功！</p>
+            <p>搭建个人博客，并不仅仅是追赶技术潮流，而是我为自己规划的一项长期投资与自我锻炼。</p>
+            <p>我们每天会接触大量碎片化的知识和灵感，它们很容易在忙碌中被遗忘。博客强迫我停下脚步，将那些零散的知识点、思路，通过文章的形式进行结构化地梳理与沉淀。“教”是最好的“学”，当我试图清晰地解释一个技术概念时，我才能真正地理解它、掌握它。</p>
+            <p>一个长期维护、内容扎实的博客，就像一个动态的、立体的作品集。它直观地展示了我不仅“知道”什么，更能体现我如何思考、如何解决问题，以及我对技术的热情与持续学习的轨迹。它是我技术成长最忠实的见证者。</p>
+            <h2>持续更新中...</h2>
+            <p>2025.11.12 version: 1.0</p>
+            <p>敬请期待更多精彩内容！</p>
         </div>
     </main>
 
