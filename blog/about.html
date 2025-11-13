@@ -297,6 +297,42 @@
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
+        /* 更新日志区域 - 简洁版 */
+        .updates {
+            margin-bottom: 60px;
+        }
+
+        .updates-list {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        .update-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            align-items: flex-start;
+        }
+
+        .update-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-date {
+            min-width: 100px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .update-content {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -388,7 +424,25 @@
                     </div>
                 </div>
             </div>
-            <div class="about-image" style="background-image: url(');"></div>
+            <div class="about-image" style="background-image: url('#');"></div>
+        </section>
+        <!-- 更新日志 -->
+        <section id="updates" class="updates">
+            <h2 class="section-title">更新日志</h2>
+            <div class="updates-list">
+                <div class="update-item">
+                    <span class="update-date">2025.11.13</span>
+                    <span class="update-content">1.部分文章封面改动<br/>2.修复未生效超链接<br/>3.优化细节</span>
+                </div>
+                <div class="update-item">
+                    <span class="update-date">2025.11.13</span>
+                    <span class="update-content">博客正式上线</span>
+                </div>
+                <div class="update-item">
+                    <span class="update-date">2025.11.12</span>
+                    <span class="update-content">博客设计完毕</span>
+                </div>
+            </div>
         </section>
     </main>
 
