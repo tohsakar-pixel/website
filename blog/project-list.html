@@ -174,9 +174,12 @@
             background-color: #1a1a1a;
             position: relative;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         
-        .project-image::before {
+        /* .project-image::before {
             content: '';
             position: absolute;
             top: 0;
@@ -185,7 +188,7 @@
             height: 100%;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(10, 10, 10, 0.7) 100%);
             z-index: 1;
-        }
+        } */
         
         .project-tag {
             position: absolute;
@@ -215,6 +218,15 @@
             color: white;
         }
         
+        .ai-tag {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+        .competition-tag {
+            background-color: #6f42c1; 
+            color: white;
+        }
+
         .project-content {
             padding: 25px;
         }
@@ -376,8 +388,153 @@
     <!-- 页面标题 -->
     <section class="page-header">
         <div class="container">
-            <h1 class="page-title">更新中...</h1>
+            <h1 class="page-title">项目作品</h1>
+            <p class="page-subtitle">展示我在编程、设计和开发领域的实践成果，包括Python应用、C语言项目和Web开发作品。</p>
+        </div>
+    </section>
+
+    <!-- 项目筛选 -->
+    <section class="container">
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">全部项目</button>
+            <button class="filter-btn" data-filter="python">Python</button>
+            <button class="filter-btn" data-filter="c">C语言</button>
+            <button class="filter-btn" data-filter="competition">竞赛</button>
+            <button class="filter-btn" data-filter="ai">AI</button>
+        </div>
+    </section>
+
+    <!-- 项目网格 -->
+    <main class="container">
+        <div class="projects-grid">
+            <!-- 项目1 -->
+            <div class="project-card" data-category="c competition">
+                <div class="project-image" style="background-image: url('images/distance.jpg');">
+                    <span class="project-tag c-tag">C语言</span>
+                    <span class="project-tag competition-tag">竞赛</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">2025蓝桥杯省赛大学C组-最短距离</h3>
+                    <p class="project-description">使用C语言求出显示器与电源的最短距离</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C语言</span>
+                        <span class="tech-tag">算法</span>
+                        <span class="tech-tag">蓝桥杯</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="projects/distance.html" class="project-link">查看详情</a>
+                        <a href="https://github.com/tohsakar-pixel/Lanqiao-Cup-Competition" class="project-link">GitHub</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="project-card" data-category="">
+                <div class="project-image" style="background-image: url('images/blog.jpg');">
+                    <span class="project-tag web-tag">Web</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">个人博客</h3>
+                    <p class="project-description">记录学习历程，同时也是自己的资料库。已上传至Github，持续更新中...</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/tohsakar-pixel/website" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
             
+            <!-- 项目2 -->
+            
+            
+            <!-- 项目3 -->
+            <!-- <div class="project-card" data-category="python tool">
+                <div class="project-image">
+                    <span class="project-tag python-tag">Python</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">数据分析可视化平台</h3>
+                    <p class="project-description">使用Python开发的数据分析和可视化工具，支持多种数据格式导入，提供丰富的图表类型和交互功能。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">SQLite</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- 项目4 -->
+            <!-- <div class="project-card" data-category="c">
+                <div class="project-image">
+                    <span class="project-tag c-tag">C语言</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">多线程网络服务器</h3>
+                    <p class="project-description">基于C语言和POSIX线程库开发的多线程网络服务器，支持并发连接处理和基本的HTTP请求响应。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C语言</span>
+                        <span class="tech-tag">Socket编程</span>
+                        <span class="tech-tag">多线程</span>
+                        <span class="tech-tag">Linux</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- 项目5 -->
+            <!-- <div class="project-card" data-category="web">
+                <div class="project-image">
+                    <span class="project-tag web-tag">Web</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">响应式企业官网</h3>
+                    <p class="project-description">使用现代前端技术开发的响应式企业官网，适配各种设备屏幕，包含动画效果和交互式组件。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">jQuery</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">在线演示</a>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- 项目6 -->
+            <!-- <div class="project-card" data-category="python">
+                <div class="project-image">
+                    <span class="project-tag python-tag">Python</span>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">自动化测试框架</h3>
+                    <p class="project-description">基于Python的自动化测试框架，支持Web应用和API接口的自动化测试，生成详细的测试报告。</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Selenium</span>
+                        <span class="tech-tag">Requests</span>
+                        <span class="tech-tag">Pytest</span>
+                        <span class="tech-tag">Allure</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="project-detail.html" class="project-link">查看详情</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </main>
 
@@ -402,7 +559,7 @@
                     <h3>联系我</h3>
                     <ul class="footer-links">
                         <li>邮箱: zzm2708@outlook.com</li>
-                        <li>QQ: 2426413059/li>
+                        <li>QQ: 2426413059</li>
                     </ul>
                 </div>
                 <div class="footer-column">

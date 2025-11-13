@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人博客的第一篇文章</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css">
+    <title>项目作品</title>
     <style>
         /* 全局样式 */
         :root {
@@ -17,6 +16,7 @@
             --border-color: #2a2a2a;
             --python-blue: #3776ab;
             --c-blue: #00599c;
+            --web-orange: #e34c26;
         }
         
         * {
@@ -45,7 +45,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -103,130 +103,101 @@
             width: 100%;
         }
         
-        /* 文章详情头部 */
-        .article-detail-header {
+        /* 页面标题 */
+        .page-header {
             padding: 80px 0 40px;
             text-align: center;
         }
         
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        
-        .back-link::before {
-            content: '←';
-        }
-        
-        .article-title {
-            font-size: 2.5rem;
+        .page-title {
+            font-size: 2.8rem;
             margin-bottom: 20px;
             color: var(--accent-gold);
-            line-height: 1.3;
         }
         
-        .article-meta {
+        .page-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+        
+        /* 项目筛选 */
+        .project-filters {
             display: flex;
             justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
-            gap: 20px;
-            color: var(--text-secondary);
-        }
-        
-        .article-category {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background-color: var(--bg-card);
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .article-info {
-            display: flex;
             gap: 15px;
-            font-size: 0.9rem;
         }
         
-        /* 文章内容 */
-        .article-body {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            padding-bottom: 80px;
-        }
-        
-        .article-body h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            color: var(--accent-gold);
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .article-body h3 {
-            font-size: 1.4rem;
-            margin: 30px 0 15px;
-            color: var(--accent-gold-light);
-        }
-        
-        .article-body p {
-            margin-bottom: 20px;
-        }
-        
-        .article-body ul, .article-body ol {
-            margin-bottom: 20px;
-            padding-left: 30px;
-        }
-        
-        .article-body li {
-            margin-bottom: 10px;
-        }
-        
-        .article-body blockquote {
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 20px;
-            margin: 30px 0;
-            font-style: italic;
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: transparent;
             color: var(--text-secondary);
-        }
-        
-        /* 代码块样式 */
-        .code-block {
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 25px 0;
-            overflow-x: auto;
             border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border-color: var(--accent-gold);
         }
         
-        .code-title {
-            font-weight: 600;
-            color: var(--accent-gold);
+        /* 项目网格 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
         }
         
-        .language-tag {
-            display: inline-block;
-            padding: 3px 10px;
+        .project-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(10, 10, 10, 0.7) 100%);
+            z-index: 1;
+        }
+        
+        .project-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: 600;
+            z-index: 2;
         }
         
         .python-tag {
@@ -239,14 +210,66 @@
             color: white;
         }
         
-        pre {
-            margin: 0;
-            font-family: 'Consolas', 'Monaco', monospace;
-            line-height: 1.5;
+        .web-tag {
+            background-color: var(--web-orange);
+            color: white;
         }
         
-        code {
-            font-family: 'Consolas', 'Monaco', monospace;
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            padding: 4px 10px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .project-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+        
+        .project-link:hover::after {
+            transform: translateX(5px);
         }
         
         /* 页脚 */
@@ -322,13 +345,12 @@
                 margin: 0 15px;
             }
             
-            .article-title {
-                font-size: 2rem;
+            .projects-grid {
+                grid-template-columns: 1fr;
             }
             
-            .article-meta {
-                flex-direction: column;
-                gap: 10px;
+            .page-title {
+                font-size: 2.2rem;
             }
         }
     </style>
@@ -341,40 +363,21 @@
                 <div class="logo">Rin's Blog</div>
                 <nav>
                     <ul>
-                        <li><a href="../index.html">首页</a></li>
-                        <li><a href="../article.html">文章</a></li>
-                        <li><a href="../project-list.html">项目</a></li>
-                        <li><a href="../about.html">关于</a></li>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="article.html">文章</a></li>
+                        <li><a href="project-list.html" class="active">项目</a></li>
+                        <li><a href="about.html">关于</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- 文章详情头部 -->
-    <section class="article-detail-header container">
-        <a href="../article.html" class="back-link">返回文章列表</a>
-        <h1 class="article-title">个人博客的第一篇文章</h1>
-        <div class="article-meta">
-            <span class="article-category">网页更新</span>
-            <div class="article-info">
-                <span class="article-date">2025年11月12日</span>
-                <span class="article-read-time">1分钟阅读</span>
-                <span class="article-words">约100字</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- 文章内容 -->
-    <main class="container">
-        <div class="article-body">
-            <h2>为什么搭建个人博客？</h2>
-            <p>搭建个人博客，并不仅仅是追赶技术潮流，而是我为自己规划的一项长期投资与自我锻炼。</p>
-            <p>我们每天会接触大量碎片化的知识和灵感，它们很容易在忙碌中被遗忘。博客强迫我停下脚步，将那些零散的知识点、思路，通过文章的形式进行结构化地梳理与沉淀。“教”是最好的“学”，当我试图清晰地解释一个技术概念时，我才能真正地理解它、掌握它。</p>
-            <p>一个长期维护、内容扎实的博客，就像一个动态的、立体的作品集。它直观地展示了我不仅“知道”什么，更能体现我如何思考、如何解决问题，以及我对技术的热情与持续学习的轨迹。它是我技术成长最忠实的见证者。</p>
-            <h2>持续更新中...</h2>
-            <p>2025.11.12 version: 1.0</p>
-            <p>敬请期待更多精彩内容！</p>
+    <!-- 页面标题 -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">更新中...</h1>
+            
         </div>
     </main>
 
@@ -384,28 +387,28 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Rin's Blog</h3>
-                    <p>一个专注于技术、设计与生活感悟的个人博客空间</p >
+                    <p>一个专注于编程技术与软件开发的个人博客。</p>
                 </div>
                 <div class="footer-column">
                     <h3>快速链接</h3>
                     <ul class="footer-links">
-                        <li><a href="../index.html">首页</a ></li>
-                        <li><a href="../article.html">文章</a ></li>
-                        <li><a href="../project-list.html">项目</a ></li>
-                        <li><a href="../about.html">关于</a ></li>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="article.html">文章</a></li>
+                        <li><a href="project-list.html">项目</a></li>
+                        <li><a href="about.html">关于</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>联系我</h3>
                     <ul class="footer-links">
                         <li>邮箱: zzm2708@outlook.com</li>
-                        <li>QQ: 2426413059</li>
+                        <li>QQ: 2426413059>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>关注我</h3>
                     <div class="social-links">
-                        <a href="https://github.com/tohsakar-pixel" class="social-link">G</a >
+                        <a href="https://github.com/tohsakar-pixel" class="social-link">G</a>
                     </div>
                 </div>
             </div>
@@ -415,7 +418,31 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>
+        // 项目筛选功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 更新活动按钮
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 筛选项目
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

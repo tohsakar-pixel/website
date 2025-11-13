@@ -177,8 +177,8 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        
-        .article-image::before {
+        /* 文章封面降低亮度 */
+        /* .article-image::before {
             content: '';
             position: absolute;
             top: 0;
@@ -187,7 +187,7 @@
             height: 100%;
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(10, 10, 10, 0.7) 100%);
             z-index: 1;
-        }
+        } */
         
         .article-tag {
             position: absolute;
@@ -379,6 +379,21 @@
     <!-- 文章网格 -->
     <main class="container">
         <div class="articles-grid">
+            <!-- new -->
+            <div class="article-card" data-category="c">
+                <div class="article-image" style="background-image: url('images/cq.jpg');">
+                    <span class="article-tag c-tag">C语言</span>
+                </div>
+                <div class="article-content">
+                    <h3 class="article-title">compare & qsort</h3>
+                    <p class="article-excerpt">compare函数和qsort函数的格式及应用</p>
+                    <div class="article-meta">
+                        <span class="article-date">2025年11月13日</span>
+                        <span class="article-read-time">5分钟阅读</span>
+                    </div>
+                    <a href="articles/compareqsort.html" class="read-more">阅读全文</a>
+                </div>
+            </div>
             <!-- 文章1 -->
             <div class="article-card" data-category="algorithm">
                 <div class="article-image" style="background-image: url('images/add.jpg');">
@@ -396,7 +411,7 @@
             </div>
             <!-- 文章2 -->
             <div class="article-card" data-category="web">
-                <div class="article-image" style="background-image: url('images/rinswebsite.jpg');">
+                <div class="article-image" style="background-image: url('images/blog.jpg');">
                     <span class="article-tag web-tag">网页更新</span>
                 </div>
                 <div class="article-content">

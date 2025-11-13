@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人博客的第一篇文章</title>
+    <title>两个超大位数相加 | 文章详情</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/night-owl.min.css">
     <style>
         /* 全局样式 */
@@ -354,13 +354,13 @@
     <!-- 文章详情头部 -->
     <section class="article-detail-header container">
         <a href="../article.html" class="back-link">返回文章列表</a>
-        <h1 class="article-title">个人博客的第一篇文章</h1>
+        <h1 class="article-title">compare & qsort</h1>
         <div class="article-meta">
-            <span class="article-category">网页更新</span>
+            <span class="article-category">C语言</span>
             <div class="article-info">
-                <span class="article-date">2025年11月12日</span>
-                <span class="article-read-time">1分钟阅读</span>
-                <span class="article-words">约100字</span>
+                <span class="article-date">2025年11月13日</span>
+                <span class="article-read-time">4分钟阅读</span>
+                <span class="article-words">约200字</span>
             </div>
         </div>
     </section>
@@ -368,13 +368,77 @@
     <!-- 文章内容 -->
     <main class="container">
         <div class="article-body">
-            <h2>为什么搭建个人博客？</h2>
-            <p>搭建个人博客，并不仅仅是追赶技术潮流，而是我为自己规划的一项长期投资与自我锻炼。</p>
-            <p>我们每天会接触大量碎片化的知识和灵感，它们很容易在忙碌中被遗忘。博客强迫我停下脚步，将那些零散的知识点、思路，通过文章的形式进行结构化地梳理与沉淀。“教”是最好的“学”，当我试图清晰地解释一个技术概念时，我才能真正地理解它、掌握它。</p>
-            <p>一个长期维护、内容扎实的博客，就像一个动态的、立体的作品集。它直观地展示了我不仅“知道”什么，更能体现我如何思考、如何解决问题，以及我对技术的热情与持续学习的轨迹。它是我技术成长最忠实的见证者。</p>
-            <h2>持续更新中...</h2>
-            <p>2025.11.12 version: 1.0</p>
-            <p>敬请期待更多精彩内容！</p>
+            <h2>compare格式</h2>
+            <p>比较函数，用于排序（展示为整形数组降序）</p>
+            <code><p>int compare(const void* a, const void* b)<br/>&lbrace;<br/>&nbsp&nbsp&nbsp&nbspreturn (*(int*)b - *(int*)a);<br/>&rbrace;</p></code>
+            <h2>qsort格式</h2>
+            <p><code>void qsort ( void* base, size_t nitems, size_t size, compare );</code></p>
+            <p>简化为：qsort(数组名, 元素个数, sizeof(数组类型), 比较函数);</p>
+            <h2>在不同情况下的使用方法</h2>
+            <h3>整数数组</h3>
+            <p><code>int int_arr[] = {3, 1, 4, 1, 5};<br/>qsort(int_arr, 5, sizeof(int), compare_int);</code></p>
+            <h3>双精度数组</h3>    
+            <p><code>double double_arr[] = {3.14, 2.71, 1.41};<br/>qsort(double_arr, 3, sizeof(double), compare_double);</strong></code></p>    
+            <h3>字符串数组</h3>
+            <p><code>char* str_arr[] = {"apple", "banana", "cherry"};<br/>qsort(str_arr, 3, sizeof(char*), compare_string);</code></p>
+            <h3>结构体数组</h3>
+            <p><code>typedef struct<br/>&lbrace;<br/>&nbsp&nbsp&nbsp&nbspchar name[20];<br/>&nbsp&nbsp&nbsp&nbspint age;<br/>&rbrace; Person;</code></p>
+            <p><code>Person people[3] = {{"Alice", 25}, {"Bob", 20}, {"Charlie", 30}};<br/>qsort(people, 3, sizeof(Person), compare_by_age);</code></p>
+            <h2>具体应用</h2>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-title">展示</span>
+                    <span class="language-tag python-tag">C</span>
+                </div>
+                <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// 比较函数 - 升序
+int compare_asc (const void *a, const void *b) 
+{
+    return (*(int*)a - *(int*)b);
+}
+
+// 比较函数 - 降序  
+int compare_desc (const void *a, const void *b) 
+{
+    return (*(int*)b - *(int*)a);  // 反过来就是降序
+}
+
+int main() 
+{
+    int numbers[] = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    int n = sizeof (numbers) / sizeof (numbers[0]);
+    
+    printf ("原数组: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf ("%d ", numbers[i]);
+    }
+    printf ("\n");
+    
+    // 升序排序
+    qsort (numbers, n, sizeof (int), compare_asc);
+    printf ("升序排序: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf ("%d ", numbers[i]);
+    }
+    printf ("\n");
+    
+    // 降序排序
+    qsort (numbers, n, sizeof (int), compare_desc);
+    printf ("降序排序: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf ("%d ", numbers[i]);
+    }
+    printf ("\n");
+    
+    return 0;
+}
+                </code></pre>
+            </div>
         </div>
     </main>
 
